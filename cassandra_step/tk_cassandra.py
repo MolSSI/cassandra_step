@@ -48,6 +48,27 @@ class TkCassandra(molssi_workflow.TkNode):
         # Shortcut for parameters
         P = self.node.parameters
 
+        # # Frame to isolate widgets
+        # self['thermo_state'] = ttk.LabelFrame(
+        #     self['frame'], borderwidth=4, relief='sunken',
+        #     text='Thermodynamic state', labelanchor='n', padding=10
+        # )
+
+        # self['temperature'] = P['temperature'].widget(self['thermo_state'])
+        # self['num_mols'] = P['num_mols'].widget(self['thermo_state'])
+
+        # row = 0
+        # self['temperature'].grid(row=row, column=0, sticky=tk.W)
+        # row += 1
+        # self['num_mols'].grid(row=row, column=0, sticky=tk.W)
+        # row += 1
+
+        # mw.align_labels(
+        #     (self['temperature'],
+        #      self['num_mols'],
+        #      )
+        # )
+
         # The create the widgets
         for key in P:
             self[key] = P[key].widget(self['frame'])
