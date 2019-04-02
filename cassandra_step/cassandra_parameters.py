@@ -161,6 +161,18 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "help_text": "The cut-off for electrostatic interactions"
         },
 
+
+        "cutoff_min": {
+            "value": 0.5,
+            "default": 0.5,
+            "kind": "float",
+            "default_units": None,
+            "format_string": ".2f",
+            "description": "Minimum cutoff",
+            "help_text": "The minimum distance at which energy calculation is computed. If distance between two particles is smaller than this, the move is automatically rejected. "
+        },
+
+
         "ewald_accuracy": {
             "value": 0.00001,
             "default": 0.00001,
@@ -253,6 +265,155 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "format_string": ".2f",
             "description": "Regrowth probability",
             "help_text": "Probability of a molecule regrowth"
+        },
+
+        "mixing_rule": {
+            "value": 'Lorentz-Berthelot',
+            "default": 'Lorentz-Berthelot',
+            "kind": "string",
+            "format_string": "s",
+            "enumeration": (
+                'Lorentz-Berthelot',
+                'Geometric',
+                'Custom',
+            ),
+            "description": "Electrostatics: ",
+            "help_text": ("Method to compute electrostatics")
+        },
+
+        "seed_1": {
+            "value": "random",
+            "default": "random",
+            "kind": "integer",
+            "units": None,
+            "default_units": None,
+            "format_string": "",
+            "enumeration": ("random",),
+            "description": "Random seed 1:",
+            "help_text": ("The seed for the random number generator."
+                          "'random' means to generate a random integer "
+                          "as the seed.")
+        },
+
+        "seed_2": {
+            "value": "random",
+            "default": "random",
+            "kind": "integer",
+            "units": None,
+            "default_units": None,
+            "format_string": "",
+            "enumeration": ("random",),
+            "description": "Random seed 2:",
+            "help_text": ("The seed for the random number generator."
+                          "'random' means to generate a random integer "
+                          "as the seed.")
+        },
+
+        "initial_config": {
+            "value": 'New configuration',
+            "default": 'New configuration',
+            "kind": "string",
+            "format_string": "s",
+            "enumeration": (
+                'New configuration',
+                'Read old XYZ file',
+                'Restart from checkpoint file',
+                'Add molecules to existing configuration',
+            ),
+            "description": "Initial configuration: ",
+            "help_text": ("Specifies the way in which an initial configuration is generated.")
+        },
+
+        "initial_config": {
+            "value": 'New configuration',
+            "default": 'New configuration',
+            "kind": "string",
+            "format_string": "s",
+            "enumeration": (
+                'New configuration',
+                'Read old XYZ file',
+                'Restart from checkpoint file',
+                'Add molecules to existing configuration',
+            ),
+            "description": "Initial configuration: ",
+            "help_text": ("Specifies the way in which an initial configuration is generated.")
+        },
+
+        "run_type": {
+            "value": 'Equilibration',
+            "default": 'Equilibration',
+            "kind": "string",
+            "format_string": "s",
+            "enumeration": (
+                'Equilibration',
+                'Production',
+            ),
+            "description": "Run type: ",
+            "help_text": ("Equilibration or production.")
+        },
+
+        "xyz_freq": {
+            "value": "1000",
+            "default": "1000",
+            "kind": "integer",
+            "units": None,
+            "default_units": None,
+            "format_string": "",
+            "enumeration": ("random",),
+            "description": "XYZ output frequency",
+            "help_text": ("The number of steps after which the current snapshot is output to disk.")
+        },
+
+        "thermo_freq": {
+            "value": "1000",
+            "default": "1000",
+            "kind": "integer",
+            "units": None,
+            "default_units": None,
+            "format_string": "",
+            "enumeration": ("random",),
+            "description": "Property output frequency",
+            "help_text": ("The number of steps after which the selected thermodynamic quantities are output to disk.")
+        },
+
+        "kappa_insertion": {
+            "value": 12,
+            "default": 12,
+            "kind": "float",
+            "default_units": None,
+            "format_string": ".2f",
+            "description": "Insertion trials: ",
+            "help_text": "The number of trial sites when attempting a molecule insertion. s"
+        },
+
+        "kappa_rotation": {
+            "value": 12,
+            "default": 12,
+            "kind": "float",
+            "default_units": None,
+            "format_string": ".2f",
+            "description": "Rotation trials: ",
+            "help_text": "The number of trial rotations when attempting a molecule insertion. s"
+        },
+
+        "kappa_dihedral": {
+            "value": 12,
+            "default": 12,
+            "kind": "float",
+            "default_units": None,
+            "format_string": ".2f",
+            "description": "Dihedral trials: ",
+            "help_text": "The number of trial dihedral angles attempted when regrowing a molecule. "
+        },
+
+        "Rcut cbmc": {
+            "value": 6.0,
+            "default": 6.0,
+            "kind": "float",
+            "default_units": None,
+            "format_string": ".2f",
+            "description": "CBMC cutoff: ",
+            "help_text": "The cutoff used to compute the energies of the trial state in a regrowth move. "
         },
 
     }
