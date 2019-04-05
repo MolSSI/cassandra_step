@@ -32,31 +32,82 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
     as the first character in the field.
     """
 
+    # sections = {'general': 'General information', 'thermo_state': 'Thermodynamic state', 'energy_calc': 'Energy calculation', 'probability': 'Probabilities', 'initial_config': 'Initial configuration', 'output_prop': 'Output properties', 'other': 'Other'}
+
     parameters = {
-        "run_name": {
-            "value": 'Run_name',
-            "default": 'my_simulation',
+
+        "seed_1": {
+            "value": "random",
+            "default": "random",
+            "kind": "integer",
+            "units": None,
+            "default_units": None,
+            "group": "general",
+            "format_string": "",
+            "enumeration": ("random",),
+            "description": "Random seeds: ",
+            "help_text": ("The seed for the random number generator."
+                          "'random' means to generate a random integer "
+                          "as the seed.")
+        },
+
+        "run_type": {
+            "value": 'Equilibration',
+            "default": 'Equilibration',
             "kind": "string",
             "format_string": "s",
-            "enumeration": tuple(),
-            "description": "The simulation run name",
-            "help_text": ("Files will be named using this name")
+            "group": "general",
+            "enumeration": (
+                'Equilibration',
+                'Production',
+            ),
+            "description": "Run type: ",
+            "help_text": ("Equilibration or production.")
         },
+
+        "xyz_freq": {
+            "value": "1000",
+            "default": "1000",
+            "kind": "integer",
+            "units": None,
+            "default_units": None,
+            "format_string": "",
+            "group": "general",
+            "enumeration": ("random",),
+            "description": "XYZ output frequency",
+            "help_text": ("The number of steps after which the current snapshot is output to disk.")
+        },
+
+        "thermo_freq": {
+            "value": "1000",
+            "default": "1000",
+            "kind": "integer",
+            "units": None,
+            "default_units": None,
+            "format_string": "",
+            "group": "general",
+            "enumeration": ("random",),
+            "description": "Property output frequency",
+            "help_text": ("The number of steps after which the selected thermodynamic quantities are output to disk.")
+        },
+
 
         "sim_length": {
             "default": 5000000,
             "kind": "integer",
             "default_units": None,
             "enumeration": tuple(),
+            "group": "general",
             "format_string": "d",
-            "description": "Number of steps:",
-            "help_text": ("Total number of Monte Carlo steps in a simulation.")
+            "description": "Simulation length:",
+            "help_text": ("Total number of Monte Carlo steps or sweeps in a simulation.")
         },
 
         "sim_length_units": {
             "value": 'Steps',
             "default": 'Steps',
             "kind": "string",
+            "group": "general",
             "format_string": "s",
             "enumeration": (
                 'Steps',
@@ -71,6 +122,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 450,
             "kind": "float",
             "default_units": "K",
+            "group": "thermo_state",
             "enumeration": tuple(),
             "format_string": ".1f",
             "description": "Temperature: ",
@@ -82,6 +134,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": '/a/b/c/methane.mcf',
             "kind": "string",
             "format_string": "s",
+            "group": "thermo_state",
             "enumeration": tuple(),
             "description": "MCF location: ",
             "help_text": ("The file containing a molecule topology")
@@ -92,6 +145,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "kind": "integer",
             "default_units": None,
             "enumeration": tuple(),
+            "group": "thermo_state",
             "format_string": "d",
             "description": "Number of molecules: ",
             "help_text": ("Number of molecules")
@@ -101,6 +155,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "value": 'Cubic',
             "default": 'Cubic',
             "kind": "string",
+            "group": "thermo_state",
             "format_string": "s",
             "enumeration": (
                 'Cubic',
@@ -111,10 +166,35 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "help_text": ("The shape of the simulation box")
         },
 
+        "dim_xx": {
+            "value": 40.0,
+            "default": 40.0,
+            "kind": "float",
+            "units": "angstroms",
+            "default_units": "angstroms",
+            "group": "thermo_state",
+            "format_string": ".2f",
+            "description": "XX dimension:",
+            "help_text": "The XX component of the H matrix"
+        },
+
+        "alpha": {
+            "value": 10.0,
+            "default": 10.0,
+            "kind": "float",
+            "units": "degrees",
+            "default_units": "degrees",
+            "group": "thermo_state",
+            "format_string": ".2f",
+            "description": "Degrees",
+            "help_text": "The alpha angle between two basis vectors"
+        },
+
         "vdw": {
             "value": 'LJ',
             "default": 'LJ',
             "kind": "string",
+            "group": "energy_calc",
             "format_string": "s",
             "enumeration": (
                 'LJ',
@@ -129,6 +209,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 'Standard tail correction',
             "kind": "string",
             "format_string": "s",
+            "group": "energy_calc",
             "enumeration": (
                 'Standard long tail correction',
                 'Spline around cut-off',
@@ -145,9 +226,26 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "kind": "float",
             "units": "angstroms",
             "default_units": "angstroms",
+            "group": "energy_calc",
             "format_string": ".2f",
             "description": "VDW cutoff: ",
             "help_text": "The cut-off radius for Van der Waals interactions"
+        },
+
+
+        "mixing_rule": {
+            "value": 'Lorentz-Berthelot',
+            "default": 'Lorentz-Berthelot',
+            "kind": "string",
+            "group": "energy_calc",
+            "format_string": "s",
+            "enumeration": (
+                'Lorentz-Berthelot',
+                'Geometric',
+                'Custom',
+            ),
+            "description": "Electrostatics: ",
+            "help_text": ("Method to compute electrostatics")
         },
 
         "electrostatics": {
@@ -155,6 +253,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 'Ewald',
             "kind": "string",
             "format_string": "s",
+            "group": "energy_calc",
             "enumeration": (
                 'Ewald',
                 'Damped shifted force',
@@ -170,6 +269,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 16.0,
             "kind": "float",
             "units": "angstroms",
+            "group": "energy_calc",
             "default_units": "angstroms",
             "format_string": ".2f",
             "description": "Electrostatic cutoff: ",
@@ -182,6 +282,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 0.5,
             "kind": "float",
             "default_units": None,
+            "group": "energy_calc",
             "format_string": ".2f",
             "description": "Minimum cutoff",
             "help_text": "The minimum distance at which energy calculation is computed. If distance between two particles is smaller than this, the move is automatically rejected. "
@@ -193,6 +294,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 0.00001,
             "kind": "float",
             "units": "angstroms",
+            "group": "energy_calc",
             "default_units": "angstroms",
             "format_string": ".2f",
             "description": "Ewald sum accuracy: ",
@@ -204,32 +306,11 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 0.2,
             "kind": "float",
             "units": "angstroms",
+            "group": "energy_calc",
             "default_units": "angstroms",
             "format_string": ".2f",
             "description": "DSF damping factor: ",
             "help_text": "The damping factor of the DSF method",
-        },
-
-        "dim_xx": {
-            "value": 40.0,
-            "default": 40.0,
-            "kind": "float",
-            "units": "angstroms",
-            "default_units": "angstroms",
-            "format_string": ".2f",
-            "description": "XX dimension:",
-            "help_text": "The XX component of the H matrix"
-        },
-
-        "alpha": {
-            "value": 10.0,
-            "default": 10.0,
-            "kind": "float",
-            "units": "degrees",
-            "default_units": "degrees",
-            "format_string": ".2f",
-            "description": "Degrees",
-            "help_text": "The alpha angle between two basis vectors"
         },
 
         "translation": {
@@ -237,6 +318,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 0.5,
             "kind": "float",
             "default_units": None,
+            "group": "probability",
             "format_string": ".2f",
             "description": "Translation probability",
             "help_text": "Probability of a center-of-mass translation"
@@ -246,6 +328,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "value": 0.5,
             "default": 0.5,
             "kind": "float",
+            "group": "probability",
             "default_units": None,
             "format_string": ".2f",
             "description": "Rotation probability",
@@ -256,6 +339,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "value": 0.5,
             "default": 0.5,
             "kind": "float",
+            "group": "probability",
             "default_units": None,
             "format_string": ".2f",
             "description": "Angle probability",
@@ -266,6 +350,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "value": 0.5,
             "default": 0.5,
             "kind": "float",
+            "group": "probability",
             "default_units": None,
             "format_string": ".2f",
             "description": "Dihedral probability",
@@ -276,54 +361,13 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "value": 0.5,
             "default": 0.5,
             "kind": "float",
+            "group": "probability",
             "default_units": None,
             "format_string": ".2f",
             "description": "Regrowth probability",
             "help_text": "Probability of a molecule regrowth"
         },
 
-        "mixing_rule": {
-            "value": 'Lorentz-Berthelot',
-            "default": 'Lorentz-Berthelot',
-            "kind": "string",
-            "format_string": "s",
-            "enumeration": (
-                'Lorentz-Berthelot',
-                'Geometric',
-                'Custom',
-            ),
-            "description": "Electrostatics: ",
-            "help_text": ("Method to compute electrostatics")
-        },
-
-        "seed_1": {
-            "value": "random",
-            "default": "random",
-            "kind": "integer",
-            "units": None,
-            "default_units": None,
-            "format_string": "",
-            "enumeration": ("random",),
-            "description": "Random seed 1:",
-            "help_text": ("The seed for the random number generator."
-                          "'random' means to generate a random integer "
-                          "as the seed.")
-        },
-
-        "seed_2": {
-            "value": "random",
-            "default": "random",
-            "kind": "integer",
-            "units": None,
-            "default_units": None,
-            "format_string": "",
-            "enumeration": ("random",),
-            "description": "Random seed 2:",
-            "help_text": ("The seed for the random number generator."
-                          "'random' means to generate a random integer "
-                          "as the seed.")
-        },
-
         "initial_config": {
             "value": 'New configuration',
             "default": 'New configuration',
@@ -344,6 +388,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 'New configuration',
             "kind": "string",
             "format_string": "s",
+            "group": "initial_config",
             "enumeration": (
                 'New configuration',
                 'Read old XYZ file',
@@ -354,48 +399,13 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "help_text": ("Specifies the way in which an initial configuration is generated.")
         },
 
-        "run_type": {
-            "value": 'Equilibration',
-            "default": 'Equilibration',
-            "kind": "string",
-            "format_string": "s",
-            "enumeration": (
-                'Equilibration',
-                'Production',
-            ),
-            "description": "Run type: ",
-            "help_text": ("Equilibration or production.")
-        },
-
-        "xyz_freq": {
-            "value": "1000",
-            "default": "1000",
-            "kind": "integer",
-            "units": None,
-            "default_units": None,
-            "format_string": "",
-            "enumeration": ("random",),
-            "description": "XYZ output frequency",
-            "help_text": ("The number of steps after which the current snapshot is output to disk.")
-        },
-
-        "thermo_freq": {
-            "value": "1000",
-            "default": "1000",
-            "kind": "integer",
-            "units": None,
-            "default_units": None,
-            "format_string": "",
-            "enumeration": ("random",),
-            "description": "Property output frequency",
-            "help_text": ("The number of steps after which the selected thermodynamic quantities are output to disk.")
-        },
 
         "kappa_insertion": {
             "value": 12,
             "default": 12,
             "kind": "float",
             "default_units": None,
+            "group": "other",
             "format_string": ".2f",
             "description": "Insertion trials: ",
             "help_text": "The number of trial sites when attempting a molecule insertion. s"
@@ -406,6 +416,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 12,
             "kind": "float",
             "default_units": None,
+            "group": "other",
             "format_string": ".2f",
             "description": "Rotation trials: ",
             "help_text": "The number of trial rotations when attempting a molecule insertion. s"
@@ -416,6 +427,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 12,
             "kind": "float",
             "default_units": None,
+            "group": "other",
             "format_string": ".2f",
             "description": "Dihedral trials: ",
             "help_text": "The number of trial dihedral angles attempted when regrowing a molecule. "
@@ -426,6 +438,7 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "default": 6.0,
             "kind": "float",
             "default_units": None,
+            "group": "other",
             "format_string": ".2f",
             "description": "CBMC cutoff: ",
             "help_text": "The cutoff used to compute the energies of the trial state in a regrowth move. "
