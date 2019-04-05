@@ -3,6 +3,7 @@
 
 import logging
 import molssi_workflow
+import cassandra_step
 import pprint
 
 logger = logging.getLogger(__name__)
@@ -418,15 +419,10 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
 
     }
 
-    def __init__(self, data=parameters):
+    def __init__(self, data=None):
         """Initialize the instance, by default from the default
         parameters given in the class"""
 
         logger.debug('Cassandra_Parameters.__init__')
 
-        super().__init__()
-
-        logger.debug("Initializing Cassandra_Parameters object:")
-        logger.debug("\n{}\n".format(pprint.pformat(data)))
-
-        self.update(data)
+        super().__init__(Cassandra_Parameters.parameters, data=data)
