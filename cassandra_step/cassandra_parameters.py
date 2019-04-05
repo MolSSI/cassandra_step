@@ -53,6 +53,20 @@ class Cassandra_Parameters(molssi_workflow.Parameters):
             "help_text": ("Total number of Monte Carlo steps in a simulation.")
         },
 
+        "sim_length_units": {
+            "value": 'Steps',
+            "default": 'Steps',
+            "kind": "string",
+            "format_string": "s",
+            "enumeration": (
+                'Steps',
+                'Sweeps',
+            ),
+            "description": "Simulation length: ",
+            "help_text": ("The units of simulation length")
+        },
+
+
         "temperature": {
             "default": 450,
             "kind": "float",
