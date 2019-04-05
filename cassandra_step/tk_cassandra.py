@@ -31,8 +31,6 @@ class TkCassandra(molssi_workflow.TkNode):
     def create_dialog(self):
         """Create the dialog!"""
 
-        sections = {'general_info': 'General information', 'thermo_state': 'Thermodynamic state', 'energy_calc': 'Energy calculation', 'probability': 'Probabilities', 'initial_config': 'Initial configuration', 'output_prop': 'Output properties', 'other': 'Other'}
-
         """Create the dialog!"""
         self.dialog = Pmw.Dialog(
             self.toplevel,
@@ -48,57 +46,34 @@ class TkCassandra(molssi_workflow.TkNode):
         notebook.pack(side='top', fill=tk.BOTH, expand=1)
         self._widget['notebook'] = notebook
 
-        # Main frame holding the widgets
-        frame = ttk.Frame(notebook)
-        notebook.add(frame, text='General information', sticky=tk.NW)
+        # # Main frame holding the widgets
+        self["general"] = ttk.Frame(notebook)
+        notebook.add(self["general"], text='General information', sticky=tk.NW)
+        self["thermo_state"] = ttk.Frame(notebook)
+        notebook.add(self["thermo_state"], text='Thermodynamic state', sticky=tk.NW)
+        self["initial_config"] = ttk.Frame(notebook)
+        notebook.add(self["initial_config"], text='Initial configuration', sticky=tk.NW)
+        self["energy_calc"] = ttk.Frame(notebook)
+        notebook.add(self["energy_calc"], text='Energy calculation', sticky=tk.NW)
+        self["probability"] = ttk.Frame(notebook)
+        notebook.add(self["probability"], text='Probabilities', sticky=tk.NW)
+        self["outputs"] = ttk.Frame(notebook)
+        notebook.add(self["outputs"], text='Outputs', sticky=tk.NW)
+        self["other"] = ttk.Frame(notebook)
+        notebook.add(self["other"], text='Other', sticky=tk.NW)
 
-        run_type_label = ttk.Label(frame, text='Run type: ')
-        run_type = ttk.Combobox(
-            frame,
-            state='readonly',
-            values=P["run_type"]["enumeration"])
-        run_type_label.grid(row=0, column=0, columnspan=2, sticky=tk.E)
-        run_type.grid(row=0, column=2, sticky=tk.W)
+        row = 0
+        for k, v in P.items():
+            # print(v['group'], k)
+            self[k] = P[k].widget(self[v["group"]])
+            self[k].grid(row=row, column=0, sticky=tk.W)
+            row += 1
 
-        sim_length_label = ttk.Label(frame, text='Simulation length: ')
-        sim_length = ttk.Entry(frame, width=15)
-        sim_length_units = ttk.Combobox(
-            frame,
-            state='readonly',
-            values=P["sim_length_units"]["enumeration"])
-        sim_length_label.grid(row=2, column=0, columnspan=2, sticky=tk.E)
-        sim_length.grid(row=2, column=2, sticky=tk.W)
-        sim_length_units.grid(row=2, column=3, columnspan=2, sticky=tk.E)
+            # mw.align_labels(
+            #     (self[k])
+            # )
 
-        seeds_label = ttk.Label(frame, text='Random seeds: ')
-        seeds_label_one = ttk.Entry(frame, width=15)
-        seeds_label_two = ttk.Entry(frame, width=15)
-        seeds_label.grid(row=3, column=0, columnspan=2, sticky=tk.E)
-        seeds_label_one.grid(row=3, column=2, sticky=tk.W)
-        seeds_label_two.grid(row=3, column=3, columnspan=2, sticky=tk.E)
-
-        freq_xyz_label = ttk.Label(frame, text='Coordinate output frequency: ')
-        freq_xyz = ttk.Entry(frame, width=15)
-        freq_xyz_label.grid(row=4, column=0, columnspan=2, sticky=tk.E)
-        freq_xyz.grid(row=4, column=2, sticky=tk.W)
-
-        freq_thermo_label = ttk.Label(frame, text='Property output frequency: ')
-        freq_thermo = ttk.Entry(frame, width=15)
-        freq_thermo_label.grid(row=5, column=0, columnspan=2, sticky=tk.E)
-        freq_thermo.grid(row=5, column=2, sticky=tk.W)
-
-        frame = ttk.Frame(notebook)
-        notebook.add(frame, text='Thermodynamic state', sticky=tk.NW)
-        frame = ttk.Frame(notebook)
-        notebook.add(frame, text='Initial configuration', sticky=tk.NW)
-        frame = ttk.Frame(notebook)
-        notebook.add(frame, text='Energy calculation', sticky=tk.NW)
-        frame = ttk.Frame(notebook)
-        notebook.add(frame, text='Probabilities', sticky=tk.NW)
-        frame = ttk.Frame(notebook)
-        notebook.add(frame, text='Outputs', sticky=tk.NW)
-        frame = ttk.Frame(notebook)
-        notebook.add(frame, text='Other', sticky=tk.NW)
+        # bindings...
 
     def reset_dialog(self, widget=None):
         """Layout the widgets in the dialog
