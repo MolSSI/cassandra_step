@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """The graphical part of a Cassandra step"""
 
-import molssi_workflow
-from molssi_workflow import ureg, Q_, units_class  # nopep8
-import molssi_util.molssi_widgets as mw
+import seamm
+from seamm import ureg, Q_, units_class  # nopep8
+import seamm_widgets as sw
 import cassandra_step
 import Pmw
 import pprint  # nopep8
@@ -12,12 +12,12 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-class TkCassandra(molssi_workflow.TkNode):
+class TkCassandra(seamm.TkNode):
     """The graphical part of a Cassandra step in a MolSSI flowchart.
 
     """
 
-    def __init__(self, tk_workflow=None, node=None, canvas=None,
+    def __init__(self, tk_flowchart=None, node=None, canvas=None,
                  x=None, y=None, w=None, h=None):
         '''Initialize a node
 
@@ -25,7 +25,7 @@ class TkCassandra(molssi_workflow.TkNode):
         '''
         self.dialog = None
 
-        super().__init__(tk_workflow=tk_workflow, node=node,
+        super().__init__(tk_flowchart=tk_flowchart, node=node,
                          canvas=canvas, x=None, y=None, w=200, h=50)
 
     def create_dialog(self):
@@ -69,7 +69,7 @@ class TkCassandra(molssi_workflow.TkNode):
             self[k].grid(row=row, column=0, sticky=tk.W)
             row += 1
 
-            # mw.align_labels(
+            # sw.align_labels(
             #     (self[k])
             # )
 
@@ -101,7 +101,7 @@ class TkCassandra(molssi_workflow.TkNode):
         #     row += 1
 
         # # Align the labels
-        # mw.align_labels(widgets)
+        # sw.align_labels(widgets)
         pass
 
     def right_click(self, event):

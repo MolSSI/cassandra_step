@@ -2,14 +2,14 @@
 """Control parameters for the Cassandra step in a MolSSI flowchart"""
 
 import logging
-import molssi_workflow
+import seamm
 import cassandra_step
 import pprint
 
 logger = logging.getLogger(__name__)
 
 
-class Cassandra_Parameters(molssi_workflow.Parameters):
+class Cassandra_Parameters(seamm.Parameters):
     """The control parameters for Cassandra
 
     This is a dictionary of Parameters objects, which themselves are

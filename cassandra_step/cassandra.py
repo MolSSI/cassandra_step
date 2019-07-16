@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Non-graphical part of the Cassandra step in a MolSSI workflow
+"""Non-graphical part of the Cassandra step in SEAMM
 
 In addition to the normal logger, two logger-like printing facilities are
 defined: 'job' and 'printer'. 'job' send output to the main job.out file for
@@ -11,10 +11,10 @@ directory, and is used for all normal output from this step.
 """
 
 import logging
-import molssi_workflow
-from molssi_workflow import ureg, Q_, data  # nopep8
-import molssi_util.printing as printing
-from molssi_util.printing import FormattedText as __
+import seamm
+from seamm import ureg, Q_, data  # nopep8
+import seamm_util.printing as printing
+from seamm_util.printing import FormattedText as __
 import cassandra_step
 
 logger = logging.getLogger(__name__)
@@ -22,9 +22,9 @@ job = printing.getPrinter()
 printer = printing.getPrinter('lammps')
 
 
-class Cassandra(molssi_workflow.Node):
+class Cassandra(molssi_flowchart.Node):
     def __init__(self,
-                 workflow=None,
+                 flowchart=None,
                  title='Cassandra',
                  extension=None):
         """A Cassandra step in a MolSSI flowchart.
@@ -37,7 +37,7 @@ class Cassandra(molssi_workflow.Node):
         logger.debug('Creating Cassandra {}'.format(self))
 
         super().__init__(
-            workflow=workflow,
+            flowchart=flowchart,
             title='Cassandra',
             extension=extension)
 
@@ -77,7 +77,7 @@ class Cassandra(molssi_workflow.Node):
         """
         # Get the values of the parameters, dereferencing any variables
         P = self.parameters.current_values_to_dict(
-            context=molssi_workflow.workflow_variables._data
+            context=seamm.flowchart_variables._data
         )
 
         # Temporary code just to print the parameters. You will need to change
