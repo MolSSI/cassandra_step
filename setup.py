@@ -12,8 +12,8 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'molssi_workflow>=0.1',
-    'molssi_util>=0.1'
+    seamm>=0.1',
+    'seamm_util>=0.1'
     # TODO: put any other package requirements here
 ]
 
@@ -61,10 +61,10 @@ setup(
     tests_require=test_requirements,
     setup_requires=setup_requirements,
     entry_points={
-        'org.molssi.workflow': [
+        'org.molssi.seamm': [
             'Cassandra = cassandra_step:CassandraStep',
         ],
-        'org.molssi.workflow.tk': [
+        'org.molssi.seamm.tk': [
             'Cassandra = cassandra_step:CassandraStep',
         ],
     }

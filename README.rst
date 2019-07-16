@@ -6,15 +6,15 @@ Cassandra Step
 .. image:: https://img.shields.io/pypi/v/cassandra_step.svg
         :target: https://pypi.python.org/pypi/cassandra_step
 
-.. image:: https://img.shields.io/travis/emarinri/cassandra_step.svg
-        :target: https://travis-ci.org/emarinri/cassandra_step
+.. image:: https://img.shields.io/travis/molssi-seamm/cassandra_step.svg
+        :target: https://travis-ci.org/molssi-seamm/cassandra_step
 
 .. image:: https://readthedocs.org/projects/cassandra-step/badge/?version=latest
         :target: https://cassandra-step.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/emarinri/cassandra_step/shield.svg
-     :target: https://pyup.io/repos/github/emarinri/cassandra_step/
+.. image:: https://pyup.io/repos/github/molssi-seamm/cassandra_step/shield.svg
+     :target: https://pyup.io/repos/github/molssi-seamm/cassandra_step/
      :alt: Updates
 
 
