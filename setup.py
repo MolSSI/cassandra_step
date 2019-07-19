@@ -31,7 +31,7 @@ test_requirements = [
 
 setup(
     name='cassandra_step',
-    version='0.2.0',
+    version='0.2.1',
     description="Cassandra is a Monte Carlo molecular simulation package.",
     long_description=readme + '\n\n' + history,
     author="Eliseo Marin-Rimoldi",
