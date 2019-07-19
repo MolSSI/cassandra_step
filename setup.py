@@ -17,7 +17,6 @@ requirements = [
     'seamm>=0.1',
     'seamm_util>=0.1',
     'seamm_widgets',
-    'tkinter'
 ]
 
 setup_requirements = [

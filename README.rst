@@ -17,6 +17,9 @@ Cassandra Step
      :target: https://pyup.io/repos/github/molssi-seamm/cassandra_step/
      :alt: Updates
 
+.. image:: https://codecov.io/gh/molssi-seamm/cassandra_step/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/molssi-seamm/cassandra_step
+
 
 Cassandra is a Monte Carlo molecular simulation package.
 
