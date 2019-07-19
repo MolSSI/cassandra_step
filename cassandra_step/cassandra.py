@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """Non-graphical part of the Cassandra step in SEAMM
 
 In addition to the normal logger, two logger-like printing facilities are
@@ -12,7 +13,7 @@ directory, and is used for all normal output from this step.
 
 import logging
 import seamm
-from seamm import ureg, Q_, data  # nopep8
+from seamm_util import ureg, Q_  # noqa: F401
 import seamm_util.printing as printing
 from seamm_util.printing import FormattedText as __
 import cassandra_step
@@ -22,11 +23,9 @@ job = printing.getPrinter()
 printer = printing.getPrinter('lammps')
 
 
-class Cassandra(molssi_flowchart.Node):
-    def __init__(self,
-                 flowchart=None,
-                 title='Cassandra',
-                 extension=None):
+class Cassandra(seamm.Node):
+
+    def __init__(self, flowchart=None, title='Cassandra', extension=None):
         """A Cassandra step in a MolSSI flowchart.
 
         You may wish to change the title above, which is the string displayed
@@ -37,9 +36,8 @@ class Cassandra(molssi_flowchart.Node):
         logger.debug('Creating Cassandra {}'.format(self))
 
         super().__init__(
-            flowchart=flowchart,
-            title='Cassandra',
-            extension=extension)
+            flowchart=flowchart, title='Cassandra', extension=extension
+        )
 
         self.parameters = cassandra_step.Cassandra_Parameters()
 
@@ -49,8 +47,10 @@ class Cassandra(molssi_flowchart.Node):
         the code can test values, etc.
         """
 
-        text = ('Please replace this with a short summary of the '
-                'Cassandra step, including key parameters.')
+        text = (
+            'Please replace this with a short summary of the '
+            'Cassandra step, including key parameters.'
+        )
 
         return text
 
@@ -68,7 +68,7 @@ class Cassandra(molssi_flowchart.Node):
 
         text = self.description_text(P)
 
-        job.job(__(text, indent=self.indent+'    ', **P))
+        job.job(__(text, indent=self.indent + '    ', **P))
 
         return next_node
 
@@ -84,21 +84,30 @@ class Cassandra(molssi_flowchart.Node):
         # this!
         for key in P:
             print('{:>15s} = {}'.format(key, P[key]))
-            printer.normal(__(
-                '{key:>15s} = {value}', key=key, value=P[key],
-                indent=4*' ', wrap=False, dedent=False)
+            printer.normal(
+                __(
+                    '{key:>15s} = {value}',
+                    key=key,
+                    value=P[key],
+                    indent=4 * ' ',
+                    wrap=False,
+                    dedent=False
+                )
             )
 
         return super().run()
-
 
     def analyze(self, indent='', **kwargs):
         """Do any analysis needed for this step, and print important results
         to the local step.out file using 'printer'
         """
 
-        printer.normal(__(
-            'This is a placeholder for the results form step '
-            'Cassandra', indent=4*' ', wrap=True,
-            dedent=False
-        ))
+        printer.normal(
+            __(
+                'This is a placeholder for the results form step '
+                'Cassandra',
+                indent=4 * ' ',
+                wrap=True,
+                dedent=False
+            )
+        )

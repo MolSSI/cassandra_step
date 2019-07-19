@@ -1,13 +1,12 @@
-
 # -*- coding: utf-8 -*-
+
 """The graphical part of a Cassandra step"""
 
 import seamm
-from seamm import ureg, Q_, units_class  # nopep8
-import seamm_widgets as sw
-import cassandra_step
+from seamm_util import ureg, Q_, units_class  # noqa: F401
+import seamm_widgets as sw  # noqa: F401
 import Pmw
-import pprint  # nopep8
+import pprint  # noqa: F401
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -17,27 +16,42 @@ class TkCassandra(seamm.TkNode):
 
     """
 
-    def __init__(self, tk_flowchart=None, node=None, canvas=None,
-                 x=None, y=None, w=None, h=None):
+    def __init__(
+        self,
+        tk_flowchart=None,
+        node=None,
+        canvas=None,
+        x=None,
+        y=None,
+        w=None,
+        h=None
+    ):
         '''Initialize a node
 
         Keyword arguments:
         '''
         self.dialog = None
 
-        super().__init__(tk_flowchart=tk_flowchart, node=node,
-                         canvas=canvas, x=None, y=None, w=200, h=50)
+        super().__init__(
+            tk_flowchart=tk_flowchart,
+            node=node,
+            canvas=canvas,
+            x=None,
+            y=None,
+            w=200,
+            h=50
+        )
 
     def create_dialog(self):
         """Create the dialog!"""
-
         """Create the dialog!"""
         self.dialog = Pmw.Dialog(
             self.toplevel,
             buttons=('OK', 'Help', 'Cancel'),
             master=self.toplevel,
             title='Edit Energy step',
-            command=self.handle_dialog)
+            command=self.handle_dialog
+        )
         self.dialog.withdraw()
         P = self.node.parameters
 
@@ -50,11 +64,17 @@ class TkCassandra(seamm.TkNode):
         self["general"] = ttk.Frame(notebook)
         notebook.add(self["general"], text='General information', sticky=tk.NW)
         self["thermo_state"] = ttk.Frame(notebook)
-        notebook.add(self["thermo_state"], text='Thermodynamic state', sticky=tk.NW)
+        notebook.add(
+            self["thermo_state"], text='Thermodynamic state', sticky=tk.NW
+        )
         self["initial_config"] = ttk.Frame(notebook)
-        notebook.add(self["initial_config"], text='Initial configuration', sticky=tk.NW)
+        notebook.add(
+            self["initial_config"], text='Initial configuration', sticky=tk.NW
+        )
         self["energy_calc"] = ttk.Frame(notebook)
-        notebook.add(self["energy_calc"], text='Energy calculation', sticky=tk.NW)
+        notebook.add(
+            self["energy_calc"], text='Energy calculation', sticky=tk.NW
+        )
         self["probability"] = ttk.Frame(notebook)
         notebook.add(self["probability"], text='Probabilities', sticky=tk.NW)
         self["outputs"] = ttk.Frame(notebook)
@@ -139,7 +159,8 @@ class TkCassandra(seamm.TkNode):
         if result != "OK":
             self.dialog.deactivate(result)
             raise RuntimeError(
-                "Don't recognize dialog result '{}'".format(result))
+                "Don't recognize dialog result '{}'".format(result)
+            )
 
         self.dialog.deactivate(result)
         # Shortcut for parameters

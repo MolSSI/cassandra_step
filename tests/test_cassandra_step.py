@@ -3,7 +3,11 @@
 
 """Tests for `cassandra_step` package."""
 
-import pytest  # nopep8
+import pytest  # noqa: F401
+import cassandra_step  # noqa: F401
 
 
-from cassandra_step import cassandra_step  # nopep8
+def test_construction():
+    """Simplest test that we can make a Cassandra object"""
+    cass = cassandra_step.Cassandra()
+    assert str(type(cass)) == "<class 'cassandra_step.cassandra.Cassandra'>"

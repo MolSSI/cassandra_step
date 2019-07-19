@@ -48,8 +48,8 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 
 lint: ## check style with yapf
-	yapf --diff --recursive cassandra_step tests
 	flake8 cassandra_step tests
+#	yapf --diff --recursive cassandra_step tests
 
 format: ## reformat with with yapf and isort
 	yapf --recursive --in-place cassandra_step tests
