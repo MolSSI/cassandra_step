@@ -4,7 +4,7 @@
 
 __author__ = """Eliseo Marin-Rimoldi"""
 __email__ = 'meliseo@vt.edu'
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 
 # Bring up the classes so that they appear to be directly in
 # the cassandra_step package.
