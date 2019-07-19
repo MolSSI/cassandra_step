@@ -1,29 +1,33 @@
-# Config file for automatic testing at travis-ci.org
-# This file will be regenerated if you run travis_pypi_setup.py
-
 language: python
+dist: xenial
 python:
-  - 3.5
-  - 3.4
-  - 3.3
-  - 2.7
-  - 2.6
-
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
-
-# command to run tests, e.g. python setup.py test
-script: tox
-
-# After you create the Github repo and add it to Travis, run the
-# travis_pypi_setup.py script to finish PyPI deployment setup
+- 3.7
+- 3.6
+- 3.5
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  user: emarinri
-  password:
-    secure: PLEASE_REPLACE_ME
   on:
+    python: 3.6
+    repo: molssi-seamm/seamm_util
     tags: true
-    repo: emarinri/cassandra_step
-    python: 2.7
+  user: seamm
+  password:
+    secure: B7UY7MvlaNfCjbnP3Kl8TfokRS+SawlejWkDsv4fp0TaWgH7mROuwx1Tdgy1ztOK/3ZfXWOqmdKzLrIOwfwwk3y7oDeBRON+33Y50IyiziYISL+J1H6MyjzzRQWethByPIFGs3/gcODgkXEoto6MQszPq48z7CxYf/pGztqP8z748Mf+enoigIvLWfxUnq+JQge02rM9H2UShSI8bjApYpsXncK4OYiRdx56MSSokVx56hiz9ZGYFW+jPpIKVTd5DDDyI99tE8hk+tCb6U3gGgaUMAh8BC46jFscjsNpohzQw0ZKntbt56fDopF8UhJDXbsK4nsbVCybDj8L/Q4bT14tvSYIxsfqbhsuDdU6togV7GU1dCYmJHh/bUrO5mGAv9FjeqqOkPLHYxr86KI5EPxp5vlm5e9PwTvezbASwg52NTeUjkiJWKQzop9F15zuxq43Qt2V3HFkwLbCFJd/X7QoYaWgRmZB5Z45HLwLKpfo7eAP7map1vFGWQDOoHeJWBwfYUgGrKxKfaMoLQzDNWlRxMk4FuKOQo0FFt1KSW8rVESZnp4QfFqcvTMOHJY/qvuGIPrjdkV2Nq+N7Ckq684RJfmJnO4R1kDsnvgF9veUCsmAM47zoPFGCi0Q4kPR+5k3wqni/ipJnoy0PusWZAO5DYfvLhGyam/nxlQd3TQ=
+matrix:
+  fast_finish: true
+stages:
+- lint
+- check
+- test
+install:
+- pip install -U tox-travis
+- pip install -U codecov
+jobs:
+  include:
+  - stage: lint
+    script: tox -e lint
+    python: '3.6'
+script: tox -e coverage
+after_success:
+- codecov -e TOX_ENV

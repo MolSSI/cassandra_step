@@ -12,9 +12,12 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    seamm>=0.1',
-    'seamm_util>=0.1'
-    # TODO: put any other package requirements here
+    'Pmw',
+    'pprint',
+    'seamm>=0.1',
+    'seamm_util>=0.1',
+    'seamm_widgets',
+    'tkinter'
 ]
 
 setup_requirements = [
@@ -46,16 +49,12 @@ setup(
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Chemistry',
         'Topic :: Scientific/Engineering :: Physics',
-        'Topic :: Scientific/Engineering :: Materials Science',
-        'Topic :: Scientific/Engineering :: Computational Materials Science',
-        'Topic :: Scientific/Engineering :: Computational Molecular Science',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 3  :: Only',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
     test_suite='tests',
     tests_require=test_requirements,
