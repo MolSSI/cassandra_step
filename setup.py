@@ -13,9 +13,8 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Pmw',
-    'pprint',
-    'seamm>=0.1',
-    'seamm_util>=0.1',
+    'seamm>=0.5',
+    'seamm_util>=0.5',
     'seamm_widgets',
 ]
 
